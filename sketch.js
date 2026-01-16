@@ -52,20 +52,26 @@ class Path {
   }
 
   draw() {
-    strokeWeight(4);
-    for (let i = 0; i < this.listofpoints.length - 1; i++) {
-      let x1 = this.convertToPixelsPath(this.listofpoints[i][0], (width / GridX)) + width / 2;
-      let y1 = this.convertToPixelsPath(this.listofpoints[i][1], (height / GridY)) + height / 2;
-      let x2 = this.convertToPixelsPath(this.listofpoints[i + 1][0], (width / GridX)) + width / 2;
-      let y2 = this.convertToPixelsPath(this.listofpoints[i + 1][1], (height / GridY)) + height / 2;
-      line(x1, y1, x2, y2);
-    }
-    strokeWeight(1);    
-
+  strokeWeight(4);
+  let cellWidth = width / GridX;
+  let cellHeight = height / GridY;
+  
+  for (let i = 0; i < this.listofpoints.length - 1; i++) {
+    let x1 = this.convertToPixelsPath(this.listofpoints[i][0], cellWidth) + cellWidth / 2;
+    let y1 = this.convertToPixelsPath(this.listofpoints[i][1], cellHeight) + cellHeight / 2;
+    let x2 = this.convertToPixelsPath(this.listofpoints[i + 1][0], cellWidth) + cellWidth / 2;
+    let y2 = this.convertToPixelsPath(this.listofpoints[i + 1][1], cellHeight) + cellHeight / 2;
+    line(x1, y1, x2, y2);
   }
+  strokeWeight(1);    
+}
 }
 
-let path1 = new Path([[2, 3], [5, 5], [7, 2]]);
+let Pathlist = [];
+let path1 = new Path([[2, 3], [5, 3], [5, 5]]);
+let path2 = new Path([[7, 2], [7, 5], [5, 5]]);
+Pathlist.push(path1);
+Pathlist.push(path2);
 
 
 let Townlist = [];
@@ -89,5 +95,7 @@ function draw() {
   for (let town of Townlist) {
     town.draw();
   }
-  path1.draw();
+  for (let path of Pathlist) {
+    path.draw();
+  }
 }
